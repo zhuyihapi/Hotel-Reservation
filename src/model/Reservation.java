@@ -3,10 +3,10 @@ package model;
 import java.util.Date;
 
 public class Reservation {
-    Customer customer;
-    IRoom room;
-    Date checkInData;
-    Date checkOutData;
+    private Customer customer;
+    private IRoom room;
+    private Date checkInData;
+    private Date checkOutData;
 
     public Reservation(Customer customer, IRoom room, Date checkInData, Date checkOutData) {
         this.customer = customer;
@@ -15,12 +15,20 @@ public class Reservation {
         this.checkOutData = checkOutData;
     }
 
-    public Reservation findAReservation(Date checkInData, Date checkOutData){
-        if (this.checkInData.equals(checkInData) && this.checkOutData.equals(checkOutData)){
-            return this;
-        }else{
-            return null;
-        }
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public IRoom getRoom() {
+        return room;
+    }
+
+    public Date getCheckInData() {
+        return checkInData;
+    }
+
+    public Date getCheckOutData() {
+        return checkOutData;
     }
 
     @Override
