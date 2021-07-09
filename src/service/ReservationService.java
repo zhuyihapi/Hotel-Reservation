@@ -22,6 +22,15 @@ public class ReservationService {
         return mapOfRooms.get(roomID);
     }
 
+    public static Collection<IRoom> getAllRoom() {
+/*        ArrayList<IRoom> roomArrayList = new ArrayList<>(10);
+        for (String roomID : mapOfRooms.keySet()) {
+            roomArrayList.add(mapOfRooms.get(roomID));
+        }
+        return roomArrayList;*/
+        return mapOfRooms.values();
+    }
+
     public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInData, Date checkOutData) {
         Reservation reservation = new Reservation(customer, room, checkInData, checkOutData);
         mapOfReservations.put(room.getRoomNumber(), reservation);
@@ -83,7 +92,7 @@ public class ReservationService {
 
         ReservationService.reserveARoom(customer1, room1, Date1, Date2);
 
-        for (IRoom i : ReservationService.findRooms(Date3,Date3)) {
+        for (IRoom i : ReservationService.findRooms(Date3, Date3)) {
             System.out.println(i);
         }
         for (Reservation r : ReservationService.getCustomerReservation(customer1)) {
