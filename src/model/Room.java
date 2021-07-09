@@ -2,12 +2,10 @@ package model;
 
 public class Room implements IRoom {
     public enum RoomType {
-        SINGLE,
-        DOUBLE
-/*        SINGLE("1"),
-        DOUBLE("2");
+        SINGLE("s"),
+        DOUBLE("d");
 
-        public final String label;
+        public String label;
 
         private RoomType(String label) {
             this.label = label;
@@ -20,7 +18,7 @@ public class Room implements IRoom {
                 }
             }
             throw new IllegalArgumentException();
-        }*/
+        }
     }
 
     private String roomNumber;
@@ -55,11 +53,9 @@ public class Room implements IRoom {
 
     @Override
     public String toString() {
-        return "model.Room{" +
-                "roomNumber= '" + this.roomNumber + '\'' +
-                ", roomPrice= " + this.roomPrice +
-                ", roomType= " + this.roomType +
-                '}';
+        return "roomNumber: '" + this.roomNumber + '\'' +
+                ", roomPrice: " + this.roomPrice +
+                ", roomType: " + this.roomType;
     }
 
     //test

@@ -22,10 +22,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "model.Customer{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "customerName='" + firstName + " " + lastName + '\'' +
+                ", email='" + email + '\'';
     }
 }

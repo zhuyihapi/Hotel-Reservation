@@ -70,7 +70,7 @@ public class ReservationService {
         System.out.println(mapOfReservations);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Customer customer1 = new Customer("yihan", "zhu", "1@2.c");
         IRoom room1 = new Room("100", 10.0, Room.RoomType.SINGLE);
         IRoom room2 = new Room("101", 15.0, Room.RoomType.DOUBLE);
@@ -102,14 +102,14 @@ public class ReservationService {
         ReservationService.printAllReservation();
 
 
-/*        System.out.println(mapOfReservations);
+*//*        System.out.println(mapOfReservations);
         for (String roomID :
                 mapOfReservations.keySet()) {
             System.out.println(mapOfReservations.get(roomID));
-        }*/
+        }*//*
 
         //System.out.println(ReservationService.getRoom("101"));
 
     }
-
+*/
 }
