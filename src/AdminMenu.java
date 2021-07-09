@@ -8,6 +8,7 @@ import service.ReservationService;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Scanner;
+//TODO:seeAllRooms 排序
 
 public class AdminMenu {
     public static void adminMenu() {
@@ -35,25 +36,28 @@ public class AdminMenu {
                     seeAllRooms();
                     break;
                 case 3:
+                    seeAllReservations();
                     break;
                 case 4:
                     addARoom();
                     break;
                 case 5:
+                    System.out.println("ing");
                     break;
                 case 6:
-
-                    break;
+                    MainMenu.printMainMenu();
+                    break adminWhileLoop;
                 default:
-                    System.out.println("Unknown action");
+                    System.out.println("Unknown action(admin menu)");
                     break;
             }
 
         }
+        System.out.println("Exit admin menu\n");
     }
 
     public static void printAdminMenu() {
-        System.out.println("------------------------------------");
+        System.out.println("-------------admin menu-------------");
         System.out.println("1. See all Customers");
         System.out.println("2. See all Rooms");
         System.out.println("3. See all Reservations");
@@ -61,14 +65,17 @@ public class AdminMenu {
         System.out.println("5. Add Test Data");
         System.out.println("6. Back to Main Menu");
         System.out.println("------------------------------------");
-        System.out.println("Please select a number for menu option");
+        System.out.println("Please select a number for menu option:");
     }
 
     private static void seeAllCustomers(){
         for (Customer customer : AdminResource.getAllCustomers()) {
             System.out.println(customer.toString());
         }
-        adminMenu();
+        System.out.println("Enter anything to continue");
+        //confirm
+        Scanner scanner = new Scanner(System.in);
+        String anything = scanner.nextLine();
     }
 
     private static void seeAllRooms(){
@@ -76,7 +83,14 @@ public class AdminMenu {
         for (IRoom room : AdminResource.getAllRooms()) {
             System.out.println(room.toString());
         }
-        adminMenu();
+        System.out.println("Enter anything to continue");
+        //confirm
+        Scanner scanner = new Scanner(System.in);
+        String anything = scanner.nextLine();
+    }
+
+    private static void seeAllReservations(){
+        AdminResource.displayAllReservations();
     }
 
     private static void addARoom() {
@@ -91,13 +105,12 @@ public class AdminMenu {
             Room.RoomType roomType = enterRoomType(scanner);
 
             Room newRoom = new Room(roomNumber, roomPrice, roomType);
-            ReservationService.addRoom(newRoom);
+            AdminResource.addRoom(newRoom);
             System.out.println("Room added successfully!");
 
             System.out.println("Would like to add another room? Y/N");
             answer = scanner.nextLine().toUpperCase(Locale.ROOT);
         } while (answer.equals("Y"));
-        adminMenu();
     }
 
     private static Room.RoomType enterRoomType(Scanner scanner) {

@@ -33,11 +33,9 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "model.Reservation{" +
-                "customer=" + customer +
-                ", room=" + room +
-                ", checkInData=" + checkInData +
-                ", checkOutData=" + checkOutData +
-                '}';
+        return "customer: " + customer +
+                ", room: " + room +
+                ", checkInData: " + checkInData +
+                ", checkOutData: " + checkOutData;
     }
 }

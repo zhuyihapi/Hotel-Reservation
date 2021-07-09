@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class CustomerService extends Customer {
     private static Map<String, Customer> mapOfCustomers = new HashMap<>(); //<customerEmail, Customer>
@@ -21,7 +22,14 @@ public class CustomerService extends Customer {
     }
 
     public static Customer getCustomer(String customerEmail) {
-        return mapOfCustomers.get(customerEmail);
+        String emailRegex = "^(.+)@(.+).(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        if (!pattern.matcher(customerEmail).matches()) {
+            throw new IllegalArgumentException("Error, Invalid email format");
+        }else {
+            return mapOfCustomers.get(customerEmail);
+        }
+
     }
 
 /*    public static Collection<Customer> getAllCustomer() {

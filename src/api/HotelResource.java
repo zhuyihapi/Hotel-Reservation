@@ -3,11 +3,14 @@ package api;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
+import model.Room;
 import service.CustomerService;
 import service.ReservationService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class HotelResource {
     public static Customer getCustomer(String email) {
@@ -28,10 +31,21 @@ public class HotelResource {
     }
 
     public static Collection<Reservation> getCustomerReservations(String customerEmail) {
-        return ReservationService.getCustomerReservation(CustomerService.getCustomer(customerEmail));
+        String emailRegex = "^(.+)@(.+).(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        if (!pattern.matcher(customerEmail).matches()) {
+            throw new IllegalArgumentException("Error, Invalid email format");
+        }else{
+            return ReservationService.getCustomerReservation(CustomerService.getCustomer(customerEmail));
+        }
     }
 
-    public static Collection<IRoom> findARoom(Date checkInDate, Date checkOutDate) {
-        return ReservationService.findRooms(checkInDate, checkOutDate);
+    public static void findARoom(Date checkInDate, Date checkOutDate) {
+        for (IRoom freeRoom : ReservationService.findRooms(checkInDate, checkOutDate)) {
+            System.out.println("room number: "+freeRoom.getRoomNumber()+
+                    ", room price: "+freeRoom.getRoomPrice()+
+                    ", room type: "+freeRoom.getRoomType());
+        }
+
     }
 }

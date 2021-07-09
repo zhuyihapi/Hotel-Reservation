@@ -67,7 +67,11 @@ public class ReservationService {
     }
 
     public static void printAllReservation() {
-        System.out.println(mapOfReservations);
+        for (Reservation reservation : mapOfReservations.values()) {
+            int i = 1;
+            System.out.println(i+". "+reservation.toString());
+            i++;
+        }
     }
 
     /*public static void main(String[] args) {
