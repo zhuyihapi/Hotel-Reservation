@@ -1,8 +1,10 @@
 package model;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Reservation {
+    static final String DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
     private Customer customer;
     private IRoom room;
     private Date checkInData;
@@ -31,11 +33,12 @@ public class Reservation {
         return checkOutData;
     }
 
+
     @Override
     public String toString() {
-        return "customer: " + customer +
+        return customer +
                 "\nroom: " + room +
-                "\ncheckInData: " + checkInData +
-                "\ncheckOutData: " + checkOutData;
+                "\ncheckInData: " + new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(checkInData) +
+                "\ncheckOutData: " + new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(checkOutData);
     }
 }

@@ -5,7 +5,7 @@ import model.IRoom;
 import model.Reservation;
 
 import java.util.*;
-
+//TODO Search for recommended rooms
 public class ReservationService {
 
     //private static int RECOMMENDED_ROOMS_DEFAULT_PLUS_DAYS = 7;

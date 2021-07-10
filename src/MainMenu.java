@@ -94,7 +94,7 @@ public class MainMenu {
             //TODO 格式化输出
             if (HotelResource.getCustomer(currentCustomerEmail) != null) {
                 System.out.println("Please confirm your reservation:\n" +
-                        HotelResource.bookARoom(currentCustomerEmail, HotelResource.getRoom(userChoice), checkInDate, checkOutDate));
+                        HotelResource.bookARoom(currentCustomerEmail, HotelResource.getRoom(userChoice), checkInDate, checkOutDate).toString());
                 confirm();
             }
         }

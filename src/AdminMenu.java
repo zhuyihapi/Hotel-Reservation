@@ -96,7 +96,7 @@ public class AdminMenu {
             String roomNumber = scanner.nextLine();
             System.out.println("Enter price per night:");
             double roomPrice = Double.parseDouble(scanner.nextLine());
-            System.out.println("Enter room type: single or double(enter s or d):");
+            System.out.println("Enter room type: single or double(please enter s or d):");
             Room.RoomType roomType = enterRoomType(scanner);
 
             Room newRoom = new Room(roomNumber, roomPrice, roomType);
