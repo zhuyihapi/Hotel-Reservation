@@ -17,8 +17,24 @@ public class CustomerService extends Customer {
     }
 
     public static void addCustomer(String email, String firstName, String lastName) {
-        Customer customer = new Customer(firstName, lastName, email);
-        mapOfCustomers.put(email, customer);
+        try {
+            Customer customer = new Customer(firstName, lastName, email);
+            if (mapOfCustomers.containsKey(email)) {
+                throw new Exception();
+            } else {
+                mapOfCustomers.put(email, customer);
+                System.out.println("Account create successfully!");
+                System.out.println("Please check: " + firstName + " " + lastName + ", your email is " + email);
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid email!");
+            System.out.println("Account create failed!");
+        } catch (Exception e) {
+            //e.printStackTrace();
+            System.out.println("Account already exist!");
+            System.out.println("Account create failed!");
+        }
     }
 
     public static Customer getCustomer(String customerEmail) {
@@ -26,7 +42,7 @@ public class CustomerService extends Customer {
         Pattern pattern = Pattern.compile(emailRegex);
         if (!pattern.matcher(customerEmail).matches()) {
             throw new IllegalArgumentException("Error, Invalid email format");
-        }else {
+        } else {
             return mapOfCustomers.get(customerEmail);
         }
 

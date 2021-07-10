@@ -15,7 +15,16 @@ public class ReservationService {
     private static Map<String, Reservation> mapOfReservations = new HashMap<>();
 
     public static void addRoom(IRoom room) {
-        mapOfRooms.put(room.getRoomNumber(), room);
+        try {
+            if (mapOfRooms.containsKey(room.getRoomNumber())) {
+                throw new Exception();
+            } else {
+                mapOfRooms.put(room.getRoomNumber(), room);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Room has already exist!");
+        }
     }
 
     public static IRoom getRoom(String roomID) {
@@ -67,10 +76,14 @@ public class ReservationService {
     }
 
     public static void printAllReservation() {
-        for (Reservation reservation : mapOfReservations.values()) {
-            int i = 1;
-            System.out.println(i+". "+reservation.toString());
-            i++;
+        if (mapOfReservations.values() == null) {
+            System.out.println("No reservation exist");
+        } else {
+            for (Reservation reservation : mapOfReservations.values()) {
+                int i = 1;
+                System.out.println(i + ". " + reservation.toString());
+                i++;
+            }
         }
     }
 

@@ -2,8 +2,6 @@ import api.AdminResource;
 import model.Customer;
 import model.IRoom;
 import model.Room;
-import service.CustomerService;
-import service.ReservationService;
 
 import java.util.Collections;
 import java.util.Locale;
@@ -68,29 +66,26 @@ public class AdminMenu {
         System.out.println("Please select a number for menu option:");
     }
 
-    private static void seeAllCustomers(){
+    private static void seeAllCustomers() {
         for (Customer customer : AdminResource.getAllCustomers()) {
             System.out.println(customer.toString());
         }
-        System.out.println("Enter anything to continue");
-        //confirm
-        Scanner scanner = new Scanner(System.in);
-        String anything = scanner.nextLine();
+        confirm();
     }
 
-    private static void seeAllRooms(){
+    private static void seeAllRooms() {
         //AdminResource.getAllRooms();
         for (IRoom room : AdminResource.getAllRooms()) {
             System.out.println(room.toString());
         }
-        System.out.println("Enter anything to continue");
         //confirm
-        Scanner scanner = new Scanner(System.in);
-        String anything = scanner.nextLine();
+        confirm();
     }
 
-    private static void seeAllReservations(){
+    private static void seeAllReservations() {
+        //TODO null仍无任何返回
         AdminResource.displayAllReservations();
+        confirm();
     }
 
     private static void addARoom() {
@@ -122,5 +117,12 @@ public class AdminMenu {
             System.out.println("Invalid room type! Please, choose s for single bed or d for double bed");
             return enterRoomType(scanner);
         }
+    }
+
+    public static void confirm(){
+        System.out.println("--------------------------");
+        System.out.println("Enter anything to continue");
+        Scanner scanner = new Scanner(System.in);
+        String anything = scanner.nextLine();
     }
 }

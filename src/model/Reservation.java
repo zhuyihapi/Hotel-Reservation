@@ -34,8 +34,8 @@ public class Reservation {
     @Override
     public String toString() {
         return "customer: " + customer +
-                ", room: " + room +
-                ", checkInData: " + checkInData +
-                ", checkOutData: " + checkOutData;
+                "\nroom: " + room +
+                "\ncheckInData: " + checkInData +
+                "\ncheckOutData: " + checkOutData;
     }
 }

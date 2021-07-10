@@ -19,7 +19,6 @@ public class AdminResource {
     //para: List<IRoom> rooms
     public static void addRoom(Room room) {
             ReservationService.addRoom(room);
-
     }
 
     public static Collection<IRoom> getAllRooms() {

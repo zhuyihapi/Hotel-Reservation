@@ -1,11 +1,9 @@
 import api.AdminResource;
 import api.HotelResource;
-import model.IRoom;
 import model.Room;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -45,7 +43,7 @@ public class MainMenu {
                     findAndReserveRoom();
                     break;
                 case 2:
-                    System.out.println("case 2 not complete");
+                    seeMyReservations();
                     break;
                 case 3:
                     createAAccount();
@@ -57,17 +55,7 @@ public class MainMenu {
                     break mainWhileLoop;
                 default:
                     System.out.println("Unknown action");
-                    break;
-            }
-            //TODO 处理输入回车
-
-            System.out.println("Return to main menu? y or n?");
-            String answer = scan.nextLine();
-            if (answer.equals("n")) {
-                System.out.println("Exit in the middle");
-                break;
-            } else if (!answer.equals("y")) {
-                System.out.println("返回主目录异常");
+                    break mainWhileLoop;
             }
         }
         System.out.println("Application exits");
@@ -93,18 +81,21 @@ public class MainMenu {
         System.out.println("Enter Check-Out Date mm/dd/yyyy example 01/21/2020");
         Date checkOutDate = getInputDate(scanner);
         if (checkInDate != null && checkOutDate != null) {
+            System.out.println("Available rooms:");
             HotelResource.findARoom(checkInDate, checkOutDate);
         }
         System.out.println("Please select a room number to reserve, or enter e to exit:");
         String userChoice = scanner.nextLine();
-        if (userChoice.equals("e")){
-            //TODO 直接回到主菜单
-        }else{
+        if (userChoice.equals("e")) {
+            System.out.println("Return to main menu");
+        } else {
             System.out.println("Please enter your email:");
             String currentCustomerEmail = scanner.nextLine(); //TODO 用户邮箱不存在的情况
-            System.out.println("Please confirm your reservation: "+
-                    HotelResource.bookARoom(currentCustomerEmail, HotelResource.getRoom(userChoice),checkInDate,checkOutDate));
+            //TODO 格式化输出
+            System.out.println("Please confirm your reservation:\n" +
+                    HotelResource.bookARoom(currentCustomerEmail, HotelResource.getRoom(userChoice), checkInDate, checkOutDate));
         }
+        confirm();
     }
 
     private static Date getInputDate(final Scanner scanner) {
@@ -112,20 +103,19 @@ public class MainMenu {
             return new SimpleDateFormat(DEFAULT_DATE_FORMAT).parse(scanner.nextLine());
         } catch (ParseException ex) {
             System.out.println("Error: Invalid date.");
-            findAndReserveRoom();
+            getInputDate(scanner);
         }
         return null;
     }
 
     private static void seeMyReservations() {
+        //TODO 没有任何返回
         System.out.println("please enter your email address:");
         Scanner scanner = new Scanner(System.in);
         String inputEmail = scanner.nextLine();
-        HotelResource.getCustomerReservations(inputEmail);
-        System.out.println("Enter anything to continue");
-        //confirm
-        scanner = new Scanner(System.in);
-        String anything = scanner.nextLine();
+        //TODO 格式化输出?
+        System.out.println(HotelResource.getCustomerReservations(inputEmail));
+        confirm();
     }
 
     private static void createAAccount() {
@@ -136,10 +126,15 @@ public class MainMenu {
         String ln = scanner.nextLine();
         System.out.println("Please enter your email");
         String em = scanner.nextLine();
-        System.out.println("Please check: " + fn + " " + ln + ", your email is " + em);
         //check component option
         HotelResource.createCustomer(em, fn, ln);
-        System.out.println("Account create successfully!");
+    }
+
+    public static void confirm() {
+        System.out.println("--------------------------");
+        System.out.println("Enter anything to continue");
+        Scanner scanner = new Scanner(System.in);
+        String anything = scanner.nextLine();
     }
 
 }
