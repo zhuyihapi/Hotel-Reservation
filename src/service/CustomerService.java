@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 public class CustomerService extends Customer {
     private static Map<String, Customer> mapOfCustomers = new HashMap<>(); //<customerEmail, Customer>
 
-    // ?
     public CustomerService(String firstName, String lastName, String email) {
         super(firstName, lastName, email);
     }

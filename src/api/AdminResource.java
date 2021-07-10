@@ -2,7 +2,6 @@ package api;
 
 import model.Customer;
 import model.IRoom;
-import model.Reservation;
 import model.Room;
 import service.CustomerService;
 import service.ReservationService;
