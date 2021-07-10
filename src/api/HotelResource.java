@@ -3,11 +3,10 @@ package api;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
-import model.Room;
+
 import service.CustomerService;
 import service.ReservationService;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -26,6 +25,9 @@ public class HotelResource {
     }
 
     public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate) {
+        if (CustomerService.getCustomer(customerEmail) == null) {
+            return null;
+        }
         return ReservationService.reserveARoom(CustomerService.getCustomer(customerEmail),
                 room, checkInDate, checkOutDate);
     }
@@ -35,16 +37,16 @@ public class HotelResource {
         Pattern pattern = Pattern.compile(emailRegex);
         if (!pattern.matcher(customerEmail).matches()) {
             throw new IllegalArgumentException("Error, Invalid email format");
-        }else{
+        } else {
             return ReservationService.getCustomerReservation(CustomerService.getCustomer(customerEmail));
         }
     }
 
     public static void findARoom(Date checkInDate, Date checkOutDate) {
         for (IRoom freeRoom : ReservationService.findRooms(checkInDate, checkOutDate)) {
-            System.out.println("room number: "+freeRoom.getRoomNumber()+
-                    ", room price: "+freeRoom.getRoomPrice()+
-                    ", room type: "+freeRoom.getRoomType());
+            System.out.println("room number: " + freeRoom.getRoomNumber() +
+                    ", room price: " + freeRoom.getRoomPrice() +
+                    ", room type: " + freeRoom.getRoomType());
         }
 
     }

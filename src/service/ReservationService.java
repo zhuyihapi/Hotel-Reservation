@@ -3,7 +3,6 @@ package service;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
-import model.Room;
 
 import java.util.*;
 
@@ -86,47 +85,4 @@ public class ReservationService {
             }
         }
     }
-
-    /*public static void main(String[] args) {
-        Customer customer1 = new Customer("yihan", "zhu", "1@2.c");
-        IRoom room1 = new Room("100", 10.0, Room.RoomType.SINGLE);
-        IRoom room2 = new Room("101", 15.0, Room.RoomType.DOUBLE);
-
-        //Date checkInDate1 = new Date(10 / 1);
-        //Date checkOutDate1 = new Date(10 / 3);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2000, 00, 01);
-        Date Date1 = calendar.getTime();
-        calendar.set(2000, 00, 03);
-        Date Date2 = calendar.getTime();
-        calendar.set(2000, 00, 05);
-        Date Date3 = calendar.getTime();
-
-        Reservation reservation1 = new Reservation(customer1, room1, Date1, Date2);
-        ReservationService.addRoom(room1);
-        ReservationService.addRoom(room2);
-
-        ReservationService.reserveARoom(customer1, room1, Date1, Date2);
-
-        for (IRoom i : ReservationService.findRooms(Date3, Date3)) {
-            System.out.println(i);
-        }
-        for (Reservation r : ReservationService.getCustomerReservation(customer1)) {
-            System.out.println(r);
-        }
-
-        ReservationService.printAllReservation();
-
-
-*//*        System.out.println(mapOfReservations);
-        for (String roomID :
-                mapOfReservations.keySet()) {
-            System.out.println(mapOfReservations.get(roomID));
-        }*//*
-
-        //System.out.println(ReservationService.getRoom("101"));
-
-    }
-*/
 }

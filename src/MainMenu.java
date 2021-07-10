@@ -90,12 +90,15 @@ public class MainMenu {
             System.out.println("Return to main menu");
         } else {
             System.out.println("Please enter your email:");
-            String currentCustomerEmail = scanner.nextLine(); //TODO 用户邮箱不存在的情况
+            String currentCustomerEmail = scanner.nextLine();
             //TODO 格式化输出
-            System.out.println("Please confirm your reservation:\n" +
-                    HotelResource.bookARoom(currentCustomerEmail, HotelResource.getRoom(userChoice), checkInDate, checkOutDate));
+            if (HotelResource.getCustomer(currentCustomerEmail) != null) {
+                System.out.println("Please confirm your reservation:\n" +
+                        HotelResource.bookARoom(currentCustomerEmail, HotelResource.getRoom(userChoice), checkInDate, checkOutDate));
+                confirm();
+            }
         }
-        confirm();
+
     }
 
     private static Date getInputDate(final Scanner scanner) {
@@ -109,7 +112,6 @@ public class MainMenu {
     }
 
     private static void seeMyReservations() {
-        //TODO 没有任何返回
         System.out.println("please enter your email address:");
         Scanner scanner = new Scanner(System.in);
         String inputEmail = scanner.nextLine();

@@ -119,7 +119,7 @@ public class AdminMenu {
         }
     }
 
-    public static void confirm(){
+    public static void confirm() {
         System.out.println("--------------------------");
         System.out.println("Enter anything to continue");
         Scanner scanner = new Scanner(System.in);

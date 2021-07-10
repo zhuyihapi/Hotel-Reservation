@@ -2,7 +2,6 @@ package service;
 
 import model.Customer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,24 +39,22 @@ public class CustomerService extends Customer {
     public static Customer getCustomer(String customerEmail) {
         String emailRegex = "^(.+)@(.+).(.+)$";
         Pattern pattern = Pattern.compile(emailRegex);
-        if (!pattern.matcher(customerEmail).matches()) {
-            throw new IllegalArgumentException("Error, Invalid email format");
-        } else {
-            return mapOfCustomers.get(customerEmail);
+        try {
+            if (!pattern.matcher(customerEmail).matches()) {
+                throw new IllegalArgumentException("Error, Invalid email format");
+            } else if (!mapOfCustomers.containsKey(customerEmail)) {
+                throw new Exception();
+            } else {
+                return mapOfCustomers.get(customerEmail);
+            }
+        } catch (Exception e) {
+            System.out.println("Sorry, the account doesnt exist. Please register firstly");
         }
-
+        return null;
     }
 
-/*    public static Collection<Customer> getAllCustomer() {
-        ArrayList<Customer> customerArrayList = new ArrayList<>(10);
-        for (String customerEmail : mapOfCustomers.keySet()) {
-            customerArrayList.add(mapOfCustomers.get(customerEmail));
-        }
-        return customerArrayList;
-    }*/
 
     public static Collection<Customer> getAllCustomers() {
-
         return mapOfCustomers.values(); //hashmap
     }
 }
