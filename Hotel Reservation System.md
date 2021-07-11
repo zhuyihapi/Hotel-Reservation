@@ -6,8 +6,6 @@
 
 model 包用来存放各种基础类及其方法，不作为功能实现的直接对象。
 
-
-
 ### 1.1 Customer
 
 Customer 类需要定义储存顾客信息的基本方式，顾客的信息主要由**姓**，**名**和**邮箱**组成，其中邮箱可以作为用户的ID。
@@ -24,10 +22,10 @@ Customer 类需要定义储存顾客信息的基本方式，顾客的信息主�
 
 接口定义四个方法：
 
-- String getRoomNumber()
-- Double getRoomPrice()
-- Room.RoomType getRoomType()
-- boolean isFree()
+- `String getRoomNumber()`
+- `Double getRoomPrice()`
+- `Room.RoomType getRoomType()`
+- `boolean isFree()`
 
 其中 `RoomType` 为定义在 Room 类中的内部类。
 
@@ -55,13 +53,11 @@ SINGLE and DOUBLE， 单人间和双人间，分别标记为 Lable "s" 和 Lable
 
 ## 2. Service Package
 
-存放储存信息的数据结构和实现服务的方法。
-
-
+存放储存信息的数据结构及对其进行访问，实现服务逻辑功能并给前端反馈。	
 
 ### 2.1 Customer Service
 
-继承于Customer类
+继承于Customer类。
 
 #### Data structure 
 
@@ -81,11 +77,63 @@ SINGLE and DOUBLE， 单人间和双人间，分别标记为 Lable "s" 和 Lable
 
 3. `Collection<Customer> getAllCustomers()`
 
-直接返回`mapOfCustomer`的值
+直接返回`mapOfCustomer`的值。
 
 
 
 ### 2.2 Reservation Service
+
+处理所有预定房间相关的服务，包括储存顾客预定的房间。
+
+#### Data structure
+
+1. `Map<String, IRoom> mapOfRooms`
+
+储存所有由 admin 添加的可使用的房间，以房间号码（roomID）作为唯一索引。
+
+2. `Map<String, Reservation> mapOfReservations`
+
+储存所有房间预定的信息，以顾客的邮箱地址作为唯一索引。但因此导致了一个邮箱地址只能够预定一个房间的问题。
+
+#### Methods
+
+1. `void addRoom(IRoom room)`
+
+向`mapOfRooms`中添加一个新的可用的房间，须能够在重复添加房间（相同的房间号码）时给出正确反馈。
+
+2. `IRoom getRoom(String roomID)`
+
+通过房间号从表中获取一个房间对象。
+
+3. `Collection<IRoom> getAllRoom()`
+
+获取储存在`mapOfRooms`中所有房间的信息，返回一个元素为房间对象的 List 。
+
+4. `Reservation reserveARoom(Customer customer, IRoom room, Date checkInData, Date checkOutData)`
+
+将顾客预定房间信息储存在`mapOfReservations`中。
+
+5. `Collection<IRoom> findRooms(Date checkInData, Date checkOutData)`
+
+预定房间功能实现，需要通过给出的一段时间来检索该时间段内未被预定的空房间，将其储存于一个`List`内并返回。目前是通过逐个比较房间预定时间从而判断该房间是否符合顾客需求，但存在一旦房间存在多个预定则可能会因为需求符合其中一个预定而被系统误认为符合顾客要求。一种解决方案是当否决掉一个房间时检测它是否已经存在于最终 List 中，如果已存在则删除它。该部分仍需大量修改及优化。
+
+6. `Collection<Reservation> getCustomerReservation(Customer customer)`
+
+通过顾客邮箱在`mapOfReservations`中检索其预定信息。问题在于一个邮箱地址只能够预定一个房间，需要在数据结构上进一步修改。
+
+7. `void printAllReservation()`
+
+for each 遍历输出`mapOfReservations`中储存所有的 Reservation 对象，需要在没有任何对象时给出正确反馈。
+
+
+
+## 3 API Package
+
+
+
+## 4 UI (CLI)
+
+
 
 
 

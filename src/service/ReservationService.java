@@ -49,6 +49,7 @@ public class ReservationService {
         ArrayList<IRoom> freeRoomList = new ArrayList<>(5);
 
         for (String roomID : mapOfRooms.keySet()) {
+            //room has not be reserved yet
             if (!mapOfReservations.containsKey(roomID)) {
                 freeRoomList.add(mapOfRooms.get(roomID));
                 //System.out.println(mapOfRooms.get(roomID));
