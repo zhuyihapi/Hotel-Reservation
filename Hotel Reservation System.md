@@ -1,12 +1,22 @@
 # Hotel Reservation System
 
+这是一个用于练习的项目，完成了一个简单酒店预订系统的最基础的功能。该酒店预订系统使用命令行作为 UI 与用户及管理员交互。UI 层用过 API 接口与服务层相互分隔，实现功能上的解耦合（大概）。所有用户数据均储存于内存中，程序退出则信息全部消失。所有功能均通过 Java 实现。
+
+该酒店预订系统功能如下：
+
+- 顾客可以通过给出一个时间段，来获取该段时间内可供预定的房间的信息，并决定是否需要预定其中一个房间。
+- 顾客的信息通过邮箱和姓名储存在系统中，作为身份的凭证来预定房间。
+- 顾客可以在预定完成后查看自己的预定信息
+- 管理员可以在管理员界面查看所有的房间，已注册顾客和所有预定房间的信息
+- 管理员可以添加新的房间
+
 
 
 ## 1. Model Package
 
 model 包用来存放各种基础类及其方法，不作为功能实现的直接对象。
 
-### 1.1 Customer
+### Customer
 
 Customer 类需要定义储存顾客信息的基本方式，顾客的信息主要由**姓**，**名**和**邮箱**组成，其中邮箱可以作为用户的ID。
 
@@ -16,7 +26,7 @@ Customer 类需要定义储存顾客信息的基本方式，顾客的信息主�
 
 
 
-### 1.2 Room
+### Room
 
 #### IRoom interface
 
@@ -55,7 +65,7 @@ SINGLE and DOUBLE， 单人间和双人间，分别标记为 Lable "s" 和 Lable
 
 存放储存信息的数据结构及对其进行访问，实现服务逻辑功能并给前端反馈。	
 
-### 2.1 Customer Service
+### Customer Service
 
 继承于Customer类。
 
@@ -81,7 +91,7 @@ SINGLE and DOUBLE， 单人间和双人间，分别标记为 Lable "s" 和 Lable
 
 
 
-### 2.2 Reservation Service
+### Reservation Service
 
 处理所有预定房间相关的服务，包括储存顾客预定的房间。
 
@@ -129,15 +139,62 @@ for each 遍历输出`mapOfReservations`中储存所有的 Reservation 对象，
 
 ## 3 API Package
 
+### Hotel Resourse
+
+- Customer getCustomer(String email)
+- void createCustomer(String email, String firstName, String lastName)
+- IRoom getRoom(String roomNumber)
+- Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate)
+- Collection<Reservation> getCustomerReservations(String customerEmail)
+- findARoom(Date checkInDate, Date checkOutDate)
+
+### AdminResourse
+
+- Customer getCustomer(String email)
+- void addRoom(Room room)
+- Collection<IRoom> getAllRooms()
+- Collection<Customer> getAllCustomers()
+- void displayAllReservations()
+
 
 
 ## 4 UI (CLI)
 
+UI 层通过 API 接口访问服务层。
 
+### MainMenu
 
+主菜单可以允许用户输入数字来选择功能：
 
+1. Find and reserve a room
+2. See my reservations
+3. Create a account
+4. Admin
+5. Exit
 
+主 while 循环打印主菜单，除非用户选择退出应用。
 
+#### `void findAndReserveRoom()`
 
+询问用户想要预定房间的日期，在系统给出可供预定的房间后，再询问用户是否预定其中一个房间。较为困难之处在于如何从用户输入读取日期和枚举类型。这里直接搬运了别人已经写好的`getInputDate`方法：首先使用`SimpleDAteFormat`类格式化日期（格式为`String DEFAULT_DATE_FORMAT = "MM/dd/yyyy"`），再调用`.parse`方法转换字符串为 Date 类型，还需要 try 无效输入。
 
+#### `void confirm()`
 
+在每次向用户展示信息后，都需要用户按任意键确认才返回菜单界面。
+
+> 另外 UI 层理应能够处理任何情况下用户的异常输入，提示用户正确的输入格式并提供再次输入相关信息的机会，目前应用还未进行该方面的完善。
+
+### AdminMenu
+
+管理员有关的功能界面，可以从主菜单进入。
+
+功能：
+
+1. See all Customers
+2. See all Rooms
+3. See all Reservations
+4. Add a room
+5. Add Test Data (unfinished)
+6. Back to Main Menu
+
+较难处理的问题是输入枚举类型和在管理员重复输入已存在的房间 ID 时给出恰当的反馈。
