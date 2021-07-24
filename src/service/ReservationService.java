@@ -5,13 +5,20 @@ import model.IRoom;
 import model.Reservation;
 
 import java.util.*;
+
 //TODO Search for recommended rooms
 public class ReservationService {
 
     //private static int RECOMMENDED_ROOMS_DEFAULT_PLUS_DAYS = 7;
     //storing room information in a map
+
+    //TODO experiment new data structure: Map<String, LinkedList<IRoom>>
+/*    private static List<IRoom> roomLinkedList = new LinkedList<>();
+    private static Map<String, LinkedList<IRoom>> mapOfRooms2 = new HashMap<>();*/
+    //Should these reservations which has been completed be removed?
+
     private static Map<String, IRoom> mapOfRooms = new HashMap<>(); //room number, room object
-    private static Map<String, Reservation> mapOfReservations = new HashMap<>();
+    private static Map<String, Reservation> mapOfReservations = new HashMap<>(); //room number, Reservation object
 
     public static void addRoom(IRoom room) {
         try {
@@ -79,8 +86,8 @@ public class ReservationService {
         if (mapOfReservations.values() == null) {
             System.out.println("No reservation exist");
         } else {
+            int i = 1;
             for (Reservation reservation : mapOfReservations.values()) {
-                int i = 1;
                 System.out.println(i + ". " + reservation.toString());
                 i++;
             }
