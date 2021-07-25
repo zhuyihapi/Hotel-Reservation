@@ -12,9 +12,11 @@ public class ReservationService {
     //private static int RECOMMENDED_ROOMS_DEFAULT_PLUS_DAYS = 7;
     //storing room information in a map
 
-    //TODO experiment new data structure: Map<String, LinkedList<IRoom>>
-/*    private static List<IRoom> roomLinkedList = new LinkedList<>();
-    private static Map<String, LinkedList<IRoom>> mapOfRooms2 = new HashMap<>();*/
+    //TODO experiment new data structure: Map<String, LinkedList<IRoom>>,
+    // 需要设计LinkedList根据入住及退房时间插入Reservation
+    private static List<IRoom> roomLinkedList = new LinkedList<>();
+    //Map<String roomNumber,Reservation>
+    private static Map<String, List<Reservation>> mapOfReservations2 = new HashMap<>();
     //Should these reservations which has been completed be removed?
 
     private static Map<String, IRoom> mapOfRooms = new HashMap<>(); //room number, room object
@@ -46,9 +48,17 @@ public class ReservationService {
         return mapOfRooms.values();
     }
 
+    //finished map updated
     public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInData, Date checkOutData) {
         Reservation reservation = new Reservation(customer, room, checkInData, checkOutData);
-        mapOfReservations.put(room.getRoomNumber(), reservation);
+        if (mapOfReservations2.containsKey(room.getRoomNumber())){
+            //TODO 将新的预定插入到正确的位置（日期检索，linkedlist 插入）
+            mapOfReservations2.get(room.getRoomNumber()).add(reservation);
+        }else{
+            List<Reservation> linkedList = new LinkedList<>();
+            linkedList.add(reservation);
+            mapOfReservations2.put(room.getRoomNumber(), linkedList);
+        }
         return reservation;
     }
 
